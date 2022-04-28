@@ -1,0 +1,24 @@
+{
+  "channelId": "string",
+  "messageId": "string",
+  "type": "text",
+  "data": {
+    "text": "string"
+  },
+  "fileId": "string",
+  "parentId": "string",
+  "metadata": {},
+  "tags": [
+    "string"
+  ],
+  "mentionees": [
+    {
+      "type": "user",
+      "userIds": [
+        "string"
+      ]
+    }
+  ]
+}
+
+
