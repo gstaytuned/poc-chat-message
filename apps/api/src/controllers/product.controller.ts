@@ -1,4 +1,5 @@
-import { init, ProductModel } from "db";
+import { init, ProductModel, getProductByChannel } from "db";
+import { request } from "https";
 import type { Context } from "koa";
 import { BaseRoutedController, Route } from "kolp";
 
@@ -24,7 +25,7 @@ export class ProductController extends BaseRoutedController {
   })
   async getProductByChannel(context: Context) {
     const channel = context.params.channel
-    const products = await ProductModel.query("pk").eq(`CHANNEL#${channel}`).where("sk").beginsWith("CF").exec()
+    const products = await getProductByChannel(channel)
     return {
       products: products,
     };

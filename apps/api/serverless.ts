@@ -38,6 +38,7 @@ const serverlessConfiguration: AWS = {
           "dynamodb:PutItem",
           "dynamodb:UpdateItem",
           "dynamodb:DeleteItem",
+          "dynamodb:BatchWriteItem"
         ],
         Resource: [
           {
@@ -66,10 +67,10 @@ const serverlessConfiguration: AWS = {
               AttributeName: "GSI1PK",
               AttributeType: "S",
             },
-            // {
-            //   AttributeName: 'GSI1SK',
-            //   AttributeType: 'S',
-            // },
+            {
+              AttributeName: 'GSI2PK',
+              AttributeType: 'S',
+            },
           ],
           KeySchema: [
             {
@@ -91,6 +92,26 @@ const serverlessConfiguration: AWS = {
               KeySchema: [
                 {
                   AttributeName: "GSI1PK",
+                  KeyType: "HASH",
+                },
+                {
+                  AttributeName: "sk",
+                  KeyType: "RANGE"
+                }
+              ],
+              Projection: {
+                ProjectionType: "ALL",
+              },
+            },
+            {
+              IndexName: "GSI2",
+              ProvisionedThroughput: {
+                ReadCapacityUnits: 1,
+                WriteCapacityUnits: 1,
+              },
+              KeySchema: [
+                {
+                  AttributeName: "GSI2PK",
                   KeyType: "HASH",
                 },
                 {
