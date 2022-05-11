@@ -1,0 +1,117 @@
+[
+  {
+     "channels":[
+        {
+           "isDistinct":true,
+           "type":"conversation",
+           "isMuted":false,
+           "lastActivity":"2022-05-01T05:57:46.674Z",
+           "updatedAt":"2022-05-01T06:01:03.679Z",
+           "createdAt":"2022-05-01T05:53:57.555Z",
+           "isRateLimited":false,
+           "rateLimitWindow":1000,
+           "displayName":"long dooo eik tteeee",
+           "messageAutoDeleteEnabled":false,
+           "autoDeleteMessageByFlagLimit":0,
+           "isDeleted":false,
+           "metadata":{
+              
+           },
+           "tags":[
+              
+           ],
+           "channelId":"626e20757e446400d9aa8cdd",
+           "memberCount":2,
+           "messageCount":9,
+           "avatarFileId":null
+        }
+     ],
+     "channelUsers":[
+        {
+           "membership":"member",
+           "lastActivity":"2022-05-01T06:01:03.686Z",
+           "readToSegment":0,
+           "isMuted":false,
+           "createdAt":"2022-05-01T05:53:57.618Z",
+           "updatedAt":"2022-05-01T06:01:03.686Z",
+           "lastMentionedSegment":0,
+           "isBanned":false,
+           "userId":"muze2",
+           "channelId":"626e20757e446400d9aa8cdd",
+           "roles":[
+              
+           ],
+           "permissions":[
+              
+           ]
+        },
+        {
+           "membership":"member",
+           "lastActivity":"2022-05-01T06:01:03.686Z",
+           "readToSegment":0,
+           "isMuted":false,
+           "createdAt":"2022-05-01T05:53:57.618Z",
+           "updatedAt":"2022-05-01T06:01:03.686Z",
+           "lastMentionedSegment":0,
+           "isBanned":false,
+           "userId":"GER",
+           "channelId":"626e20757e446400d9aa8cdd",
+           "roles":[
+              
+           ],
+           "permissions":[
+              
+           ]
+        }
+     ],
+     "users":[
+        {
+           "_id":"626b9e6f3d515400da202497",
+           "path":"6034b630972bb34d90905852\/user\/626b9e6f3d515400da202497",
+           "updatedAt":"2022-05-01T05:24:51.017Z",
+           "createdAt":"2022-04-29T08:14:39.906Z",
+           "isDeleted":false,
+           "displayName":"muze2",
+           "userId":"muze2",
+           "metadata":{
+              
+           },
+           "roles":[
+              
+           ],
+           "permissions":[
+              
+           ],
+           "flagCount":0,
+           "hashFlag":null,
+           "avatarFileId":null,
+           "isGlobalBan":false
+        },
+        {
+           "_id":"626e203c274fc800d915694a",
+           "path":"6034b630972bb34d90905852\/user\/626e203c274fc800d915694a",
+           "updatedAt":"2022-05-01T05:53:00.512Z",
+           "createdAt":"2022-05-01T05:53:00.500Z",
+           "isDeleted":false,
+           "displayName":"GER",
+           "userId":"GER",
+           "metadata":{
+              
+           },
+           "roles":[
+              
+           ],
+           "permissions":[
+              
+           ],
+           "flagCount":0,
+           "hashFlag":null,
+           "avatarFileId":null,
+           "isGlobalBan":false
+        }
+     ],
+     "files":[
+        
+     ]
+  }
+]

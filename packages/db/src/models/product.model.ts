@@ -6,6 +6,8 @@ export class Product extends Document {
   sk: string;
   cf_code: string;
   product_id: string;
+  store_id: string;
+  user_id: string;
   stock: number;
   name: string;
   price: number;
@@ -39,9 +41,12 @@ const schema = new dynamoose.Schema({
   product_id: {
     type: String,
   },
-  // channel_id: {
-  //   type: String,
-  // },
+  store_id: {
+    type: String,
+  },
+  user_id: {
+    type: String,
+  },
   name: {
     type: String,
   },
@@ -64,11 +69,11 @@ export const ProductModel = dynamoose.model<Product>(
   }
 );
 
-export const validateProductExisting = async (body): Promise<any> => {
+export const validateProductExisting = async (channelId: string, cfCode: string): Promise<Product> => {
   const [product] = await ProductModel.query("pk")
-    .eq(`CHANNEL#${body.channel_id}`)
+    .eq(`CHANNEL#${channelId}`)
     .where("sk")
-    .eq(`CF#${body.cf_code}`)
+    .eq(`CF#${cfCode}`)
     .exec();
   return product;
 };
@@ -79,6 +84,8 @@ export const init = async () => {
       pk: "CHANNEL#1",
       sk: "CF#CF10",
       cf_code: "CF10",
+      store_id: "A SHOP",
+      user_id: "user_1",
       product_id: "1",
       stock: 10,
       name: "Boots",
@@ -88,6 +95,8 @@ export const init = async () => {
       pk: "CHANNEL#1",
       sk: "CF#CF11",
       cf_code: "CF11",
+      store_id: "B SHOP",
+      user_id: "user_1",
       product_id: "2",
       stock: 10,
       name: "Boots",
@@ -97,7 +106,9 @@ export const init = async () => {
       pk: "CHANNEL#1",
       sk: "CF#CF12",
       cf_code: "CF12",
+      store_id: "C SHOP",
       product_id: "3",
+      user_id: "user_1",
       stock: 10,
       name: "Boots",
       price: 100,
@@ -106,6 +117,8 @@ export const init = async () => {
       pk: "CHANNEL#2",
       sk: "CF#CF20",
       cf_code: "CF20",
+      store_id: "D SHOP",
+      user_id: "user_2",
       product_id: "4",
       stock: 10,
       name: "Boots",
@@ -115,6 +128,8 @@ export const init = async () => {
       pk: "CHANNEL#2",
       sk: "CF#CF21",
       cf_code: "CF21",
+      store_id: "E SHOP",
+      user_id: "user_2",
       product_id: "5",
       stock: 10,
       name: "Boots",
@@ -124,6 +139,41 @@ export const init = async () => {
       pk: "CHANNEL#2",
       sk: "CF#CF22",
       cf_code: "CF22",
+      store_id: "F SHOP",
+      user_id: "user_2",
+      product_id: "6",
+      stock: 10,
+      name: "Boots",
+      price: 100,
+    },
+    {
+      pk: "CHANNEL#0882675235",
+      sk: "CF#N100",
+      cf_code: "N100",
+      store_id: "G SHOP",
+      user_id: "user_3",
+      product_id: "6",
+      stock: 10,
+      name: "Boots",
+      price: 100,
+    },
+    {
+      pk: "CHANNEL#0882675235",
+      sk: "CF#N101",
+      cf_code: "N101",
+      product_id: "6",
+      user_id: "user_3",
+      store_id: "H SHOP",
+      stock: 10,
+      name: "Boots",
+      price: 100,
+    },
+    {
+      pk: "CHANNEL#0882675235",
+      sk: "CF#N102",
+      cf_code: "N102",
+      store_id: "I SHOP",
+      user_id: "user_3",
       product_id: "6",
       stock: 10,
       name: "Boots",
@@ -131,3 +181,8 @@ export const init = async () => {
     },
   ]);
 };
+
+export const getProductByChannel  = async(channelId: string)  => {
+  const products = await ProductModel.query("pk").eq(`CHANNEL#${channelId}`).where("sk").beginsWith("CF").exec();
+  return products;
+}

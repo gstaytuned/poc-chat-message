@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
 import { Document } from "dynamoose/dist/Document";
 import dynamoose from "./ddb";
-import { ProductModel } from "./product.model";
+import { Product, ProductModel } from "./product.model";
 export class Order extends Document {
   pk: string; // register by user onboarding?
   sk: string;
@@ -10,6 +10,7 @@ export class Order extends Document {
   name: string;
   product_id: string;
   GSI1PK: string;
+  GSI2PK: string;
 }
 
 const schema = new dynamoose.Schema({
@@ -43,6 +44,16 @@ const schema = new dynamoose.Schema({
   total_price: {
     type: Number,
   },
+  GSI2PK: {
+    type: String,
+    index: {
+      global: true,
+      rangeKey: "sk",
+      name: "GSI2",
+      project: true, // ProjectionType: ALL
+      throughput: 1, // read and write are both 5
+    },
+  },
 });
 
 export const OrderModel = dynamoose.model<Order>(
@@ -53,7 +64,7 @@ export const OrderModel = dynamoose.model<Order>(
   }
 );
 
-export const createOrder = async (product) => {
+export const createOrder = async (product:Product, userId: string) => {
   dynamoose.transaction([
     OrderModel.transaction.create({
       pk: `ORDER#${randomUUID()}`,
@@ -61,7 +72,9 @@ export const createOrder = async (product) => {
       qty: 1,
       total_price: product.price * 1,
       product_id: product.product_id,
+      name: product.name,
       GSI1PK: product.pk,
+      GSI2PK: `USER#${userId}`,
     }),
     ProductModel.transaction.update(
       {
@@ -72,3 +85,12 @@ export const createOrder = async (product) => {
     ),
   ]);
 };
+
+export const getOrderByUser = async(userId: string) =>{
+  const orders = await OrderModel.query("GSI2PK").eq(`USER#${userId}`).where("sk").beginsWith("CFORDER").exec();
+  return orders;
+}
+export const getOrderByChannel = async(channelId: string) =>{
+  const orders = await OrderModel.query("GSI1PK").eq(`CHANNEL#${channelId}`).where("sk").beginsWith("CFORDER").exec();
+  return orders;
+}

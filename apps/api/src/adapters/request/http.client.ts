@@ -23,7 +23,7 @@ export abstract class HttpClient {
   };
   _handleRequest = (config: AxiosRequestConfig) => {
     config.headers['content-type'] = 'application/json';
-    console.log('Starting Request', JSON.stringify(config.headers, null, 2))
+    console.log('Starting Request', JSON.stringify(config, null, 2))
     return config;
   };
 

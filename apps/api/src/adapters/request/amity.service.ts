@@ -1,6 +1,7 @@
 import Channels from "@models/channel";
 import { rejects } from "assert";
 import { AxiosRequestConfig } from "axios";
+import { config } from "process";
 import { HttpClient } from "./http.client";
 
 export class AmityService extends HttpClient {
@@ -17,7 +18,8 @@ export class AmityService extends HttpClient {
     );
   };
   _handleRequest = (config: AxiosRequestConfig) => {
-   config.headers['Authorization'] = 'Bearer 89c3e1d576884249fd67078b5ac8ab5957aae711';
+  //  config.headers["Authorization"] = "Bearer b0eceb5e68ddf36545308f4e000b12dcd90985e2bf3d6a2e";
+  //  config.headers["x-api-key"] = "Bearer b0eceb5e68ddf36545308f4e000b12dcd90985e2bf3d6a2e";
     return config;
   };
 
@@ -29,10 +31,19 @@ export class AmityService extends HttpClient {
     return this.classInstance;
   }
 
-  createConversation(data): Promise<Channels> {
-    return this.instance.post("/v3/channels/conversation", data)
+  createConversation(data, token): Promise<Channels> {
+    return this.instance.post("/v3/channels/conversation", data, {headers: {
+      "Authorization": `Bearer ${token}`
+  }})
   }
-  createMessage(data): Promise<any> {
-    return this.instance.post<any>("/v3/messages", data)
+  createMessage(data , token): Promise<any> {
+    return this.instance.post<any>("/v3/messages", data , {headers: {
+        "Authorization": `Bearer ${token}`
+    }})
+  }
+  createStoreAdmin(data): Promise<any> {
+    return this.instance.post<any>("/v3/sessions", data, {headers: {
+      "x-api-key": `b0eceb5e68ddf36545308f4e000b12dcd90985e2bf3d6a2e`
+  }})
   }
 }
